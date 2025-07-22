@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Random Picker</title>
+  <link rel="manifest" href="manifest.json" />
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+      console.log('Service Worker registered with scope:', registration.scope);
+    }).catch(function(error) {
+      console.log('Service Worker registration failed:', error);
+    });
+  }
+</script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px 30px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #fff;
+      color: #4facfe;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e0f7ff;
+    }
+
+    .result {
+      font-size: 1.1rem;
+      margin-top: 20px;
+      background-color: rgba(255,255,255,0.2);
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 25px 20px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px 0;
+      }
+
+      .result {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>📘 IELTS Random Question App</header>
+
+  <div class="container">
+    <div class="card">
+      <h1>Random Question Picker</h1>
+      <p>Generate a random IELTS question from Cambridge books</p>
+      <button onclick="generateRandomQuestion()">🎲 Pick Question</button>
+      <div class="result" id="result">Your result will appear here</div>
+    </div>
+  </div>
+
+  <script>
+    function generateRandomQuestion() {
+      const cambridgeBook = Math.floor(Math.random() * 19) + 1;
+      const section = Math.random() < 0.5 ? 'Reading' : 'Listening';
+      const questionNumber = Math.floor(Math.random() * 40) + 1;
+
+      document.getElementById('result').innerHTML = `
+        <strong>📚 Cambridge Book:</strong> ${cambridgeBook}<br>
+        <strong>📖 Section:</strong> ${section}<br>
+        <strong>❓ Question:</strong> ${questionNumber}
+      `;
+    }
+  </script>
+</body>
+</html>
