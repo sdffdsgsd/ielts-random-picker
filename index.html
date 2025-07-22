@@ -2,139 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IELTS Random Picker</title>
-  <link rel="manifest" href="manifest.json" />
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-      console.log('Service Worker registered with scope:', registration.scope);
-    }).catch(function(error) {
-      console.log('Service Worker registration failed:', error);
-    });
-  }
-</script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IELTS Random Question Picker</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: #fff;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
-    }
-
-    header {
-      background: rgba(0, 0, 0, 0.2);
-      padding: 15px 30px;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
+      padding: 20px;
     }
 
     .container {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: white;
       padding: 30px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
-      padding: 40px 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
       text-align: center;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      max-width: 400px;
+      max-width: 500px;
       width: 100%;
     }
 
-    .card:hover {
-      transform: scale(1.02);
+    h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #333;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .result {
+      font-size: 22px;
+      margin: 20px 0;
+      font-weight: bold;
+      color: #222;
     }
 
     button {
-      background: #fff;
-      color: #4facfe;
+      background: #0077ff;
+      color: white;
       border: none;
-      padding: 15px 30px;
-      font-size: 1rem;
-      border-radius: 30px;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 12px;
       cursor: pointer;
-      margin-top: 20px;
       transition: background 0.3s;
     }
 
     button:hover {
-      background: #e0f7ff;
+      background: #005dd1;
     }
 
-    .result {
-      font-size: 1.1rem;
-      margin-top: 20px;
-      background-color: rgba(255,255,255,0.2);
-      padding: 10px;
-      border-radius: 12px;
-    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
       h1 {
-        font-size: 1.5rem;
-      }
-
-      .card {
-        padding: 25px 20px;
-      }
-
-      button {
-        width: 100%;
-        padding: 12px 0;
+        font-size: 22px;
       }
 
       .result {
-        font-size: 1rem;
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
       }
     }
   </style>
 </head>
 <body>
-  <header>📘 IELTS Random Question App</header>
-
   <div class="container">
-    <div class="card">
-      <h1>Random Question Picker</h1>
-      <p>Generate a random IELTS question from Cambridge books</p>
-      <button onclick="generateRandomQuestion()">🎲 Pick Question</button>
-      <div class="result" id="result">Your result will appear here</div>
-    </div>
+    <h1>IELTS Random Question Picker</h1>
+    <div class="result" id="result">Click the button to get a question</div>
+    <button onclick="generateQuestion()">Get Random Question</button>
   </div>
 
   <script>
-    function generateRandomQuestion() {
-      const cambridgeBook = Math.floor(Math.random() * 19) + 1;
+    function generateQuestion() {
+      const book = Math.floor(Math.random() * 10) + 10; // Cambridge 10 to 19
       const section = Math.random() < 0.5 ? 'Reading' : 'Listening';
-      const questionNumber = Math.floor(Math.random() * 40) + 1;
+      const test = Math.floor(Math.random() * 4) + 1; // Test 1 to 4
+      const question = Math.floor(Math.random() * 40) + 1; // Question 1 to 40
 
-      document.getElementById('result').innerHTML = `
-        <strong>📚 Cambridge Book:</strong> ${cambridgeBook}<br>
-        <strong>📖 Section:</strong> ${section}<br>
-        <strong>❓ Question:</strong> ${questionNumber}
-      `;
+      const resultText = `Cambridge ${book} - ${section} - Test ${test} - Question ${question}`;
+      document.getElementById("result").innerText = resultText;
     }
   </script>
 </body>
